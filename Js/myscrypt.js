@@ -100,7 +100,7 @@ const icons =
 	}
 ];
 
-
+const colors = ['red','blue','green','orange','yellow','teal'];
 /* 
     -Milestone 1
     Partendo dalla seguente struttura dati , mostriamo in pagina tutte le icone disponibili come da layout.
@@ -116,17 +116,17 @@ const icons =
 // prendo la col su HTML
 let iconsCol = document.getElementById("icons-col");
 
-// creo una funzione che mostri tutti gli oggetti dell'array su HTML
+// creo un arrow function che mostri tutti gli oggetti dell'array su HTML
 const printOnThePage = ((array , col) => {
     let htmlContent = '';
 
     array.forEach((element) => {
-        const { family, name, prefix, type} = element;
+        const { family, name, prefix, type ,color} = element;
 
         htmlContent += 
         `
         <div>
-            <i class="${family} ${prefix}${name}"></i>
+            <i class="${family} ${prefix}${name}" style="color: ${color}"></i>
             <h5 class="icon-title">${name} -${type}</h5>
         </div>
         `
@@ -135,7 +135,8 @@ const printOnThePage = ((array , col) => {
     col.innerHTML = htmlContent;
 });
 
-// funzione che divide gli oggetti nell'array per proprieta
+
+// arrow function che divide gli oggetti nell'array per proprieta
 const getTypesElement = ((array, property) => {
     const types = [];
 
@@ -149,10 +150,47 @@ const getTypesElement = ((array, property) => {
 
 
 
+// arrow function che colora gli oggetti dell'array per tipo
+const colorized = ((array , colors)=>{
+
+    const colorizedArray = array.map((element) => {
+        const indexOfType = types.indexOf(element.type);
+        if(indexOfType !== -1){
+            element.color = colors[indexOfType];
+        }
+        console.log(element.color);
+        return element;
+    });
+    
+    return colorizedArray;
+});
+
+function addOption(array, select){
+
+    array.forEach((element)=>{
+        select.innerHTML += `<option value="${element}">${element}</option>`;
+    })
+}
 
 
-
-
-
+const types = getTypesElement(icons,"type");
+const select = document.getElementById('my-select');
+colorized(icons,colors);
 printOnThePage(icons,iconsCol);
+addOption(types, select);
 
+function filterdElement(array, filter){
+    if(filter === "all"){
+        return array;
+    }
+
+    return array.filter((element)=> element.type == filter);
+}
+
+select.addEventListener('change', () => {
+    const selectValue = select.value;
+
+    const filterdIcons = filterElement(colorized , selectValue);
+
+    printOnThePage(filterdIcons, iconsCol);
+});
