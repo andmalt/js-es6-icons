@@ -127,7 +127,7 @@ const printOnThePage = ((array , col) => {
         `
         <div>
             <i class="${family} ${prefix}${name}"></i>
-            <h4 class="icon-title">${name} ${type}</h4>
+            <h5 class="icon-title">${name} -${type}</h5>
         </div>
         `
     });
@@ -135,4 +135,24 @@ const printOnThePage = ((array , col) => {
     col.innerHTML = htmlContent;
 });
 
+// funzione che divide gli oggetti nell'array per proprieta
+const getTypesElement = ((array, property) => {
+    const types = [];
+
+    array.forEach((element) => {
+        if(!types.includes(element[property])){
+            types.push(element[property]);
+        }
+    });
+    return types;
+});
+
+
+
+
+
+
+
+
 printOnThePage(icons,iconsCol);
+
