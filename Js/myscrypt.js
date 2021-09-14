@@ -125,7 +125,7 @@ const printOnThePage = ((array , col) => {
 
         htmlContent += 
         `
-        <div>
+        <div class="col-3 box_icons">
             <i class="${family} ${prefix}${name}" style="color: ${color}"></i>
             <h5 class="icon-title">${name} -${type}</h5>
         </div>
@@ -158,7 +158,6 @@ const colorized = ((array , colors)=>{
         if(indexOfType !== -1){
             element.color = colors[indexOfType];
         }
-        console.log(element.color);
         return element;
     });
     
