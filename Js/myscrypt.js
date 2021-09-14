@@ -190,7 +190,7 @@ function filterdElement(array, filter){
 select.addEventListener('change', () => {
     const selectValue = select.value;
 
-    const filterdIcons = filterElement(colorized , selectValue);
+    const filterdIcons = filterdElement(icons , selectValue);
 
     printOnThePage(filterdIcons, iconsCol);
 });
